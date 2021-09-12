@@ -53,9 +53,9 @@ export const CartList = () => {
     const session = JSON.parse(sessionStorage.getItem("userName") as string);
     const { userId } = session;
 
-    deleteData(`http://localhost:5000/cart/delete/${id}`).then((result) => {
+    deleteData(`${process.env.REACT_APP_SERVER_PORT}/cart/delete/${id}`).then((result) => {
       const { affectedRows } = result;
-      postData("http://localhost:5000/cart", { idLogin: userId }).then(
+      postData(`${process.env.REACT_APP_SERVER_PORT}/cart`, { idLogin: userId }).then(
         (result) => {
           dispatch.cart.fetchCartList(result);
         }
@@ -119,7 +119,7 @@ export const CartList = () => {
       orderDetail: cartOrderDetail,
     };
 
-    postData("http://localhost:5000/checkout", dataCheckout);
+    postData(`${process.env.REACT_APP_SERVER_PORT}/checkout`, dataCheckout);
 
     dispatch.order.setOrderCheckout(dataCheckout);
   };

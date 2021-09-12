@@ -15,6 +15,7 @@ import { Dispatch, RootState } from "./state/store";
 import { getData, postData } from "./api";
 import { CartInfo, ProductInfo, TaskInfo } from "./types/task";
 import { Login } from "./components/Login/Login";
+import { env } from "process";
 
 function App() {
   // const [taskInfoList, setTaskInfoList] = useState<TaskInfo[]>([]);
@@ -180,8 +181,10 @@ function App() {
     }
   }, [dispatch, taskList2, deleteId]);
 
+  console.log("3232: ", process.env.REACT_APP_SERVER_PORT);
+
   useEffect(() => {
-    getData("http://localhost:5000/product").then((result) => {
+    getData(`${process.env.REACT_APP_SERVER_PORT}/product`).then((result) => {
       dispatch.product.fetchProductList(result as ProductInfo[]);
     });
   }, [dispatch.product]);
@@ -200,7 +203,7 @@ function App() {
 
   useEffect(() => {
     if (idLogin) {
-      postData("http://localhost:5000/cart", { idLogin }).then((result) => {
+      postData(`${process.env.REACT_APP_SERVER_PORT}/cart`, { idLogin }).then((result) => {
         dispatch.cart.fetchCartList(result);
       });
     }

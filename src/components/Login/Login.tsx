@@ -34,7 +34,7 @@ export const Login = () => {
   const [messageLogin, setMessageLogin] = useState("");
 
   const onSubmit = (data: DataLogin) => {
-    postData("http://localhost:5000/login", data).then((result) => {
+    postData(`${process.env.REACT_APP_SERVER_PORT}/login`, data).then((result) => {
       if (result[0]) {
         const { name, id } = result[0];
         sessionStorage.setItem(
@@ -54,7 +54,7 @@ export const Login = () => {
   const responseFacebook = async (response: any) => {
     const { id: facebookId, name, picture } = response;
 
-    await postData("http://localhost:5000/login/getUserId", {
+    await postData(`${process.env.REACT_APP_SERVER_PORT}/login/getUserId`, {
       userId: facebookId,
     }).then(async (result) => {
       if (result.length > 0) {
@@ -69,11 +69,11 @@ export const Login = () => {
         );
         history.push("/product");
       } else {
-        await postData("http://localhost:5000/login/register", {
+        await postData(`${process.env.REACT_APP_SERVER_PORT}/login/register`, {
           userName: facebookId,
         });
 
-        postData("http://localhost:5000/login/getUserId", {
+        postData(`${process.env.REACT_APP_SERVER_PORT}/login/getUserId`, {
           userId: facebookId,
         }).then((result) => {
           if (result.length > 0) {

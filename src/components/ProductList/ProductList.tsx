@@ -26,13 +26,13 @@ export const ProductList = (): JSX.Element => {
       userId: userId,
     };
 
-    postData("http://localhost:5000/cart/add", data).then((result) => {
+    postData(`${process.env.REACT_APP_SERVER_PORT}/cart/add`, data).then((result) => {
       if (userId) {
         const { affectedRows } = result;
         if (affectedRows > 0) {
           alert("Đã thêm sản phẩm vào giỏ hàng ");
         }
-        postData("http://localhost:5000/cart", { idLogin: userId }).then(
+        postData(`${process.env.REACT_APP_SERVER_PORT}/cart`, { idLogin: userId }).then(
           (result) => {
             dispatch.cart.fetchCartList(result);
           }

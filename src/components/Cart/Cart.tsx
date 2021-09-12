@@ -54,14 +54,14 @@ export const Cart = (props: CartProps) => {
     const { userId } = session;
     if (event.currentTarget.id === "add") {
       setQuantity(quantity + 1);
-      postData("http://localhost:5000/cart", { idLogin: userId }).then(
+      postData(`${process.env.REACT_APP_SERVER_PORT}/cart`, { idLogin: userId }).then(
         (result) => {
           dispatch.cart.fetchCartList(result);
         }
       );
     } else if (quantity > 1) {
       setQuantity(quantity - 1);
-      postData("http://localhost:5000/cart", { idLogin: userId }).then(
+      postData(`${process.env.REACT_APP_SERVER_PORT}/cart`, { idLogin: userId }).then(
         (result) => {
           dispatch.cart.fetchCartList(result);
         }
@@ -73,7 +73,7 @@ export const Cart = (props: CartProps) => {
 
   const onchage = (event: ChangeEvent<HTMLInputElement>) => {
     setCheck(!check);
-    getData("http://localhost:5000/cart").then((result) => {
+    getData(`${process.env.REACT_APP_SERVER_PORT}/cart`).then((result) => {
       dispatch.cart.fetchCartList(result);
     });
   };
