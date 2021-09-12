@@ -36,6 +36,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, RootState } from "../../state/store";
 import { CartInfo, ProductInfo } from "../../types/task";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -309,10 +310,7 @@ export const MenuSideBar = () => {
           </div>
 
           <Typography className={classes.title} variant="h6" noWrap>
-            <a
-              style={{ color: "white", textDecoration: "none" }}
-              href="/product"
-            >
+            <a style={{ color: "white", textDecoration: "none" }} href="/">
               Material-UI
             </a>
           </Typography>

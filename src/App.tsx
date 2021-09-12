@@ -2,7 +2,7 @@ import { Button, Grid, useScrollTrigger } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 // import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import "./App.css";
 import { CartList } from "./components/CartList/CartList";
@@ -184,7 +184,7 @@ function App() {
   console.log("3232: ", process.env.REACT_APP_SERVER_PORT);
 
   useEffect(() => {
-    getData(`${process.env.REACT_APP_SERVER_PORT}/product`).then((result) => {
+    getData(`${process.env.REACT_APP_SERVER_PORT2}/product`).then((result) => {
       dispatch.product.fetchProductList(result as ProductInfo[]);
     });
   }, [dispatch.product]);
@@ -203,18 +203,18 @@ function App() {
 
   useEffect(() => {
     if (idLogin) {
-      postData(`${process.env.REACT_APP_SERVER_PORT}/cart`, { idLogin }).then((result) => {
-        dispatch.cart.fetchCartList(result);
-      });
+      postData(`${process.env.REACT_APP_SERVER_PORT}/cart`, { idLogin }).then(
+        (result) => {
+          dispatch.cart.fetchCartList(result);
+        }
+      );
     }
   }, [dispatch.cart, idLogin]);
 
   return (
     <Router>
       <Switch>
-        <Route path="/product">
-          {/* <button onClick={addToto}>ADD TODO</button> */}
-          {/* <button onClick={deleteTodo}>Delete TODO</button> */}
+        <Route path="/">
           <>
             <Grid
               item
@@ -232,29 +232,6 @@ function App() {
               <ProductList />
             </Grid>
           </>
-
-          {/* <Grid container>
-            <Grid item sm={2}>
-              <MenuSideBar />
-            </Grid>
-            <Grid item sm={6} xs={12}>
-              <TaskListControlStyled>
-                <TaskList taskList={taskList2} />
-                <Button
-                  variant="contained"
-                  fullWidth
-                  onClick={setTaskDetailAddTask}
-                  color="primary"
-                >
-                  Add task
-                </Button>
-              </TaskListControlStyled>
-            </Grid>
-            <Grid item sm={4} xs={12}>
-              <TaskDetail />
-            </Grid>
-          </Grid> */}
-          {/* <TaskManage /> */}
         </Route>
         <Route path="/cart-list">
           <MenuSideBar />
@@ -268,12 +245,6 @@ function App() {
             <Login />
           </Grid>
         </Route>
-        {/* <Route path="/task">
-          <TaskList taskList={taskList2} />
-        </Route>
-        <Route path="/task-detail/:taskId">
-          <TaskDetail />
-        </Route> */}
       </Switch>
     </Router>
   );
