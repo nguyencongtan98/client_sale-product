@@ -10,7 +10,6 @@ import firebase from "../firebase/firebase";
 export const TaskManage = (): JSX.Element => {
   const dispatch = useDispatch<Dispatch>();
   const taskList = useSelector((state: RootState) => state.task);
-  // console.log("111111: ", task);
 
   const [taskInfoList, setTaskInfoList] = useState<TaskInfo[]>([]);
   useEffect(() => {

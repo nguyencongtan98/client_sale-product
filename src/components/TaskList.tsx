@@ -1,4 +1,3 @@
-import { Pagination } from "antd";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import firebase from "../firebase/firebase";

@@ -5,7 +5,6 @@ import {
   CardActions,
   CardContent,
   Typography,
-  Collapse,
 } from "@material-ui/core";
 import React from "react";
 import styled from "styled-components";
@@ -43,9 +42,13 @@ export const Task = (props: TaskProps): JSX.Element => {
   `;
 
   return (
-    <Card style={{ borderLeft: "10px solid green", marginBottom: "5px" }}>
+    <Card style={{ marginBottom: "5px" }}>
       <CardActionArea>
-        <CardContent style={{ padding: "0 10px" }} id={id} onClick={onClick}>
+        <CardContent
+          style={{ padding: "0 10px", borderLeft: "10px solid green" }}
+          id={id}
+          onClick={onClick}
+        >
           <HeaderStyled>
             <Typography
               style={{ padding: 0 }}
@@ -60,18 +63,18 @@ export const Task = (props: TaskProps): JSX.Element => {
           <Typography variant="body2" color="textSecondary" component="p">
             {description}
           </Typography>
+          <CardActionsStyled>
+            <Button
+              className="hehe"
+              size="small"
+              color="primary"
+              style={{ border: "1px solid orange" }}
+              onClick={onDelete}
+            >
+              Delete
+            </Button>
+          </CardActionsStyled>
         </CardContent>
-        <CardActionsStyled>
-          <Button
-            className="hehe"
-            size="small"
-            color="primary"
-            style={{ border: "1px solid orange" }}
-            onClick={onDelete}
-          >
-            Delete
-          </Button>
-        </CardActionsStyled>
       </CardActionArea>
     </Card>
   );
