@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, FormControl, TextField } from "@material-ui/core";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -25,18 +26,19 @@ const generateId = () => {
 
 export const TaskDetail = (): JSX.Element => {
   const onSubmit = (data: TaskInfo) => {
-    const { status, name, description, createDate, dueDate, closingDate } =
-      data;
 
-    firebase.firestore().collection("tasks").add({
-      id: generateId(),
-      status,
-      name,
-      description,
-      createDate,
-      dueDate,
-      closingDate,
-    });
+    // const { status, name, description, createDate, dueDate, closingDate } =
+    //   data;
+
+    // firebase.firestore().collection("tasks").add({
+    //   id: generateId(),
+    //   status,
+    //   name,
+    //   description,
+    //   createDate,
+    //   dueDate,
+    //   closingDate,
+    // });
   };
 
   const [statusList, setStatusList] = useState<Status[]>([]);
@@ -61,7 +63,6 @@ export const TaskDetail = (): JSX.Element => {
   ) as string;
   const [task, setTask] = useState<TaskInfo>(taskList[0]);
 
-  console.log("task", task);
 
   useEffect(() => {
     if (taskList && taskId) {
@@ -109,6 +110,19 @@ export const TaskDetail = (): JSX.Element => {
       });
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = event;
+
+  };
+
+  useEffect(() => {
+    axios.get("https://my-posts-tannc.herokuapp.com/posts/tan").then((item) => {
+      // axios.get("http://localhost:5000/posts/tan").then((item) => {
+    });
+  }, []);
+
   return (
     <FormContainerStyled>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -119,6 +133,7 @@ export const TaskDetail = (): JSX.Element => {
             hidden
             {...register("id")}
           /> */}
+
           <TextField
             margin="dense"
             // error
@@ -127,9 +142,9 @@ export const TaskDetail = (): JSX.Element => {
             label="Task Name"
             variant="filled"
             multiline
-            defaultValue={task.name}
-            {...register("name")}
+            onChange={handleChange}
           />
+
           <TextField
             margin="dense"
             id="taskDesciption"
@@ -137,8 +152,7 @@ export const TaskDetail = (): JSX.Element => {
             multiline
             rows={7}
             variant="filled"
-            defaultValue={task.description}
-            {...register("description")}
+            onChange={handleChange}
           />
           <TextField
             margin="dense"
